@@ -1,0 +1,31 @@
+import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
+import { CityService } from 'src/app/services/city.service';
+=======
+>>>>>>> ec4f0378ca4e0a4e031f569d26358b2c55d347e3
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+<<<<<<< HEAD
+  styleUrls: ['./header.component.scss'],
+})
+export class HeaderComponent implements OnInit {
+  data: any[];
+  constructor(
+    private cityServices: CityService
+  ) {}
+
+  ngOnInit() {}
+=======
+  styleUrls: ['./header.component.scss']
+})
+export class HeaderComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+>>>>>>> ec4f0378ca4e0a4e031f569d26358b2c55d347e3
+}
