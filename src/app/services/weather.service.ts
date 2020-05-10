@@ -22,8 +22,6 @@ export class WeatherService {
         this.forecatsHourly = data.list.filter(
           (hourly) => hourly.dt_txt.indexOf(this.getCurrentDate()) >= 0
         );
-        console.log(this.forecatsHourly);
-
         return this.forecatsHourly;
       })
     );

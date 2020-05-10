@@ -1,5 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { DateService } from 'src/app/services/date.service';
+import { Component, OnInit } from '@angular/core';
 import { WeatherService } from 'src/app/services/weather.service';
 import { CityService } from 'src/app/services/city.service';
 
@@ -9,11 +8,8 @@ import { CityService } from 'src/app/services/city.service';
   styleUrls: ['./current-weather.component.scss'],
 })
 export class CurrentWeatherComponent implements OnInit {
-  @Output() cityId: EventEmitter<string> = new EventEmitter<string>();
-  matchWeather = 'red';
-  date: any;
-  data;
-  show = false;
+  currentTime: Date;
+  citiesList;
   currentWeather;
   forecastHourly;
   forecastDaily;
@@ -23,37 +19,40 @@ export class CurrentWeatherComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cityService
-      .getCities()
-      .subscribe(() => (this.data = this.cityService.citiesList));
-    this.getCurrentWearther();
     this.getDate();
+
+    this.cityService
+    .getCities()
+    .subscribe(() => (this.citiesList = this.cityService.citiesList));
+
+    this.getCurrentWearther();
+
     this.weatherService
-      .getForecasHourlytWeather()
-      .subscribe(dataHourly => ( this.forecastHourly = dataHourly) );
+    .getForecasHourlytWeather()
+    .subscribe(dataHourly => ( this.forecastHourly = dataHourly) );
+
     this.weatherService
-      .getForecasDailytWeather()
-      .subscribe( dataDaily => this.forecastDaily = dataDaily );
+    .getForecasDailytWeather()
+    .subscribe( dataDaily => this.forecastDaily = dataDaily );
   }
 
   getDate() {
-    this.date = setInterval(() => {
-      this.date = new Date();
-    }, 1000);
-
-    setTimeout(() => {
-      this.show = true;
+    setInterval(() => {
+      this.currentTime = new Date();
+      console.log(this.currentTime.getHours());
     }, 1000);
   }
+
   getCurrentWearther(metric?, city?) {
-    this.weatherService.getCurrentWeather(metric, city).subscribe((data) => {
-      this.currentWeather = data;
-      console.log('this.currentWeather', this.currentWeather);
-    });
+    this.weatherService.getCurrentWeather(metric, city).subscribe(
+      data => {this.currentWeather = data;
+      console.log(data);
+      }
+      );
   }
 
   changeCity(e) {
     this.getCurrentWearther('metric', e.id);
-    this.cityId.emit(e.id);
   }
+
 }
