@@ -2,7 +2,7 @@
   <div class="container-lgx">
     <div class="h-100 d-flex flex-column position-relative">
       <ng-container *ngIf="currentTime">
-        <app-sun *ngIf="currentTime.getHours() <= 17"></app-sun>
+        <app-sun *ngIf="!isNight()"></app-sun>
       </ng-container>
 
       <ng-container *ngIf="currentWeather">
@@ -65,7 +65,7 @@
         </div>
         <div class="box-overflow-y">
           <div class="d-flex align-items-center mx-3 justify-content-between" *ngFor="let itemDaily of forecastDaily"
-          style="border-top: .5px solid #23436b,">
+          style="border-top: .5px solid #487ec1">
             <span>{{itemDaily.dt_txt.substr(0,10)}}</span>
             <img [src]="itemDaily.weather[0].icon | img" alt="" width="50px">
             <span>{{itemDaily.main.temp | number: '1.0-0'}}°</span>

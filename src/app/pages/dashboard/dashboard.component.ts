@@ -8,6 +8,7 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class DashboardComponent implements OnInit {
   cityId: string;
+  isNight: boolean;
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit(): void {}

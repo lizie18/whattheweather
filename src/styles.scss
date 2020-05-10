@@ -43,6 +43,7 @@ main {
 // ====dayy====
 .background-day {
   background: rgb(15,93,180);
+  color: white;
   background: linear-gradient(56deg, rgba(15,93,180,1) 0%, rgba(61,139,202,1) 58%, rgba(108,187,225,1) 100%);
 }
 
@@ -78,4 +79,9 @@ main {
 
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(255,0,0,0.4);
+}
+
+
+tspan {
+  fill: white;
 }

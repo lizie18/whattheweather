@@ -1,6 +1,6 @@
-<div class="background-night main-container">
+<div class="background-day main-container" [ngClass]="isNight?'background-night':'background-day'">
   <app-header></app-header>
   <main>
-    <app-current-weather (cityId)="cityId = $event"></app-current-weather>
+    <app-current-weather (evaluateTime)="isNight = $event"></app-current-weather>
   </main>
 </div>

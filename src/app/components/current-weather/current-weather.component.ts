@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { WeatherService } from 'src/app/services/weather.service';
 import { CityService } from 'src/app/services/city.service';
 
@@ -8,6 +8,7 @@ import { CityService } from 'src/app/services/city.service';
   styleUrls: ['./current-weather.component.scss'],
 })
 export class CurrentWeatherComponent implements OnInit {
+  @Output() evaluateTime: EventEmitter<boolean> = new EventEmitter();
   currentTime: Date;
   citiesList;
   currentWeather;
@@ -39,20 +40,25 @@ export class CurrentWeatherComponent implements OnInit {
   getDate() {
     setInterval(() => {
       this.currentTime = new Date();
-      console.log(this.currentTime.getHours());
     }, 1000);
   }
 
   getCurrentWearther(metric?, city?) {
-    this.weatherService.getCurrentWeather(metric, city).subscribe(
-      data => {this.currentWeather = data;
-      console.log(data);
-      }
-      );
+    this.weatherService.getCurrentWeather(metric, city).subscribe(data => this.currentWeather = data);
   }
 
   changeCity(e) {
     this.getCurrentWearther('metric', e.id);
+  }
+
+  isNight() {
+    if (this.currentTime.getHours() <= 17) {
+      this.evaluateTime.emit(false);
+      return false;
+    } else {
+      this.evaluateTime.emit(true);
+      return true;
+    }
   }
 
 }
