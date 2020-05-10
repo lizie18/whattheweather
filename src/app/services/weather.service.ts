@@ -11,7 +11,7 @@ export class WeatherService {
   constructor(private http: HttpClient) {}
 
   getCurrentWeather(units: string = 'metric', city: string = '3936452') {
-    const url = `${URL_SERVICES}/weather?id=${city}&units=${units}&appid=${API_KEY}`;
+    const url = `${URL_SERVICES}/weather?id=${city}&units=${units}&lang=es&appid=${API_KEY}`;
     return this.http.get(url);
   }
 

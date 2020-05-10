@@ -1,0 +1,54 @@
+<div class="pt-5 h-50" [ngClass]="matchWeather">
+  <div class="container d-flex flex-column h-100 align-items-stretch">
+    <div>
+      <ng-select [items]="data" bindLabel="name" bindValue="id" (change)="changeCity($event)"></ng-select>
+      <div class="d-flex pt-5 justify-content-between content-header">
+        <div *ngIf="currentWeather">{{currentWeather.name}}</div>
+        <div *ngIf="show">
+          <div class="">{{date | date:"hh:mm:ss"}}</div>
+          <div>{{date | date: "EEEE, d MMMM, y"}}</div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="currentWeather" class="d-flex flex-column flex-grow-1 justify-content-center align-content-stretch">
+      <div class="text-center">
+        {{currentWeather.weather[0].description | titlecase}}
+      </div>
+      <h1 class="text-center">
+        {{currentWeather.main.temp | number: '1.0-0'}}°
+      </h1>
+      <div class="text-center">
+        feels like {{currentWeather.main.feels_like | number: '1.0-0'}}°
+      </div>
+    </div>
+  </div>
+</div>
+<div class="containter d-flex">
+  <div class="flex-grow-1" *ngIf="currentWeather">
+    <circle-progress [percent]="currentWeather.main.humidity" [radius]="100" [outerStrokeWidth]="16" [innerStrokeWidth]="8"
+      [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="300">
+    </circle-progress>
+  </div>
+  <div class="flex-grow-1" *ngIf="currentWeather">
+    <span>{{currentWeather.wind.speed}}</span>
+    <span>{{currentWeather.wind.deg}}</span>
+    <app-wind-turbine></app-wind-turbine>
+  </div>
+  <div class="flex-grow-1" *ngIf="forecastHourly">
+    <div>
+      <ng-container *ngFor="let itemHourly of forecastHourly">
+        {{itemHourly.main.temp | number: '1.0-0'}}
+        <img [src]="itemHourly.weather[0].icon | img" alt="">
+        {{itemHourly.dt_txt.substr(11,5)}}
+      </ng-container>
+    </div>
+    <div>
+      <div *ngFor="let itemDaily of forecastDaily">
+        {{itemDaily.dt_txt.substr(0,10)}}
+        {{itemDaily.main.temp | number: '1.0-0'}}°
+        <img [src]="itemDaily.weather[0].icon | img" alt="">
+        {{itemDaily.dt_txt.substr(11,5)}}
+      </div>
+    </div>
+  </div>
+</div>
