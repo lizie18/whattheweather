@@ -135,5 +135,8 @@
       }
     }
   },
-  "defaultProject": "wichWeather"
+  "defaultProject": "wichWeather",
+  "cli": {
+    "analytics": "68a25a7b-8281-424b-9a7e-fc376df0ca37"
+  }
 }
